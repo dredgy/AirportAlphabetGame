@@ -7,12 +7,7 @@ open Types
 
 module Program =
 
-    let pipeline = pipeline {
-        use_warbler
-    }
-
     let router = router {
-        pipe_through pipeline
         not_found_handler (setStatusCode 404 >=> text "404")
         get "/" ( (View.index [||]) |> htmlView)
         getf "/%s" (fun username -> htmlView(Controller.RenderPageWithUser username))
