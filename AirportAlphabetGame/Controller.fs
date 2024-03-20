@@ -12,7 +12,7 @@ let parseUsername (username: string) =
     let pattern = @"https?://(?:www\.)?my\.flightradar24\.com/([^/?#]+)"
     let matches = Regex.Match(username, pattern)
 
-    if matches.Success then matches.Groups.[1].Value
+    if matches.Success then matches.Groups[1].Value
     else username
 
 let getJsonResult result =
