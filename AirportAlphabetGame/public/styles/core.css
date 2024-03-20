@@ -1,0 +1,198 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: manrope, sans-serif;
+  overscroll-behavior: none;
+}
+
+a {
+  cursor: pointer;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-wrap: break-word;
+  white-space: normal;
+  text-align: center;
+}
+
+#pageContainer::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+#pageContainer {
+  height: 100dvh;
+  width: 100dvw;
+  max-width: 100%;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+#pageContainer abbr {
+  cursor: pointer;
+}
+#pageContainer section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  width: 100dvw;
+  max-width: 100%;
+  scroll-snap-align: start;
+}
+#pageContainer section.hide {
+  display: none;
+}
+#pageContainer section#input {
+  background: lightcoral;
+}
+#pageContainer section#input article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 25%;
+}
+#pageContainer section#input article h1 {
+  flex-basis: 75%;
+  color: white;
+  font-size: 5em;
+}
+#pageContainer section#input article form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 25%;
+  width: 100%;
+}
+#pageContainer section#input article form input {
+  flex-basis: 75%;
+  height: 100%;
+  font-size: 2em;
+  padding-left: 1em;
+  color: #666;
+}
+#pageContainer section#input article form button {
+  flex-basis: 25%;
+  font-size: 2em;
+  height: 100%;
+  color: white;
+  background: grey;
+}
+#pageContainer section#input article form svg {
+  display: none;
+}
+@media screen and (max-width: 900px) {
+  #pageContainer section#input article {
+    gap: 2em;
+    height: 100%;
+  }
+  #pageContainer section#input article h1 {
+    font-size: 4em;
+  }
+  #pageContainer section#input article form {
+    flex-direction: column;
+    flex-basis: 60%;
+    width: 90%;
+    justify-content: flex-start;
+  }
+  #pageContainer section#input article form input, #pageContainer section#input article form button {
+    flex-basis: 25%;
+    width: 100%;
+    font-size: 1em;
+  }
+}
+#pageContainer section#input article form.htmx-request input, #pageContainer section#input article form.htmx-request button {
+  display: none;
+}
+#pageContainer section#input article form.htmx-request svg {
+  display: block;
+}
+#pageContainer section#results {
+  background: lightblue;
+  min-height: 100dvh;
+  height: auto;
+}
+#pageContainer section#results h1 {
+  color: white;
+  font-size: 5em;
+}
+#pageContainer section#results article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+}
+#pageContainer section#results article table {
+  border: solid 2px black;
+  background: white;
+  border-collapse: collapse;
+  min-width: 50%;
+  max-width: 90%;
+}
+#pageContainer section#results article table tr th:first-child,
+#pageContainer section#results article table tr td:first-child {
+  width: 10%;
+  min-width: 10%;
+  max-width: 10%;
+  word-break: break-all;
+}
+#pageContainer section#results article table th {
+  background-color: gray;
+  color: white;
+}
+#pageContainer section#results article table td, #pageContainer section#results article table th {
+  padding: 0.3em;
+}
+#pageContainer section#results article table tr.flown th {
+  border-right: 1px solid gray;
+}
+#pageContainer section#results article table tr.flown th, #pageContainer section#results article table tr.flown td {
+  background-color: lightgreen;
+  color: black;
+}
+#pageContainer section#results article table tr.not-flown th {
+  border-right: 1px solid gray;
+}
+#pageContainer section#results article table tr.not-flown th, #pageContainer section#results article table tr.not-flown td {
+  background-color: lightcoral;
+  color: black;
+}
+@media screen and (max-width: 900px) {
+  #pageContainer section#results article {
+    min-height: 100%;
+  }
+  #pageContainer section#results article h1 {
+    width: 90%;
+    flex-basis: 25%;
+    font-size: 2em;
+  }
+  #pageContainer section#results article table {
+    width: 100dvw;
+  }
+  #pageContainer section#results article table tr th:first-child,
+#pageContainer section#results article table tr td:first-child {
+    width: 10dvw;
+    min-width: 10dvw;
+    max-width: 10dvw;
+    word-break: break-all;
+  }
+  #pageContainer section#results article table tr th:nth-child(2),
+#pageContainer section#results article table tr td:nth-child(2) {
+    width: 90dvw;
+    min-width: 90dvw;
+    max-width: 90dvw;
+    white-space: normal;
+    word-break: break-all;
+  }
+}
+
+/*# sourceMappingURL=core.css.map */

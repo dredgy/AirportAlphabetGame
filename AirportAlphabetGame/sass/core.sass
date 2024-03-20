@@ -1,0 +1,193 @@
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    scroll-behavior: smooth
+    font-family: manrope, sans-serif
+    overscroll-behavior: none
+a
+    cursor: pointer
+
+@mixin mobile
+    @media screen and (max-width: 900px)
+        @content
+
+@mixin flex
+    display: flex
+    justify-content: center
+    align-items: center
+
+@mixin flex-column
+    @include flex
+    flex-direction: column
+
+h1
+    @include flex
+    word-wrap: break-word
+    white-space: normal
+    text-align: center
+
+#pageContainer::-webkit-scrollbar
+    width: 0
+    height: 0
+
+#pageContainer
+    height: 100dvh
+    width: 100dvw
+    max-width: 100%
+    overflow-y: auto
+    scroll-snap-type: y mandatory
+    white-space: nowrap
+    scrollbar-width: none /* Firefox */
+    -ms-overflow-style: none  /* Internet Explorer 10+ */
+
+    abbr
+        cursor: pointer
+
+    section
+        @include flex
+        height: 100dvh
+        width: 100dvw
+        max-width: 100%
+        scroll-snap-align: start
+
+    section.hide
+        display: none
+
+
+    section#input
+        background: lightcoral
+
+        article
+            @include flex-column
+            height: 25%
+
+            h1
+                flex-basis: 75%
+                color: white
+                font-size: 5em
+
+            form
+                @include flex
+                flex-basis: 25%
+                width: 100%
+
+                input
+                    flex-basis: 75%
+                    height: 100%
+                    font-size: 2em
+                    padding-left: 1em
+                    color: #666
+
+                button
+                    flex-basis: 25%
+                    font-size: 2em
+                    height: 100%
+                    color: white
+                    background: grey
+
+                svg
+                    display: none
+
+
+            @include mobile
+                gap: 2em
+                height: 100%
+
+                h1
+                    font-size: 4em
+
+                form
+                    flex-direction: column
+                    flex-basis: 60%
+                    width: 90%
+                    justify-content: flex-start
+
+                    input, button
+                        flex-basis: 25%
+                        width: 100%
+                        font-size: 1em
+
+
+
+            form.htmx-request
+                input, button
+                    display: none
+
+                svg
+                    display: block
+
+    section#results
+        background: lightblue
+        min-height: 100dvh
+        height: auto
+
+        h1
+            color: white
+            font-size: 5em
+
+
+        article
+            @include flex-column
+            gap: 1em
+
+            table
+                border: solid 2px black
+                background: white
+                border-collapse: collapse
+                min-width: 50%
+                max-width: 90%
+
+                tr th:first-child,
+                tr td:first-child
+                    width: 10%
+                    min-width: 10%
+                    max-width: 10%
+                    word-break: break-all
+
+
+                th
+                    background-color: gray
+                    color: white
+
+                td, th
+                    padding: 0.3em
+
+                tr.flown
+                    th
+                        border-right: 1px solid gray
+
+                    th, td
+                        background-color: lightgreen
+                        color: black
+
+                tr.not-flown
+                    th
+                        border-right: 1px solid gray
+                    th, td
+                        background-color: lightcoral
+                        color: black
+            @include mobile
+                min-height: 100%
+                h1
+                    width: 90%
+                    flex-basis: 25%
+                    font-size: 2em
+
+                table
+                    width: 100dvw
+
+                    tr th:first-child,
+                    tr td:first-child
+                        width: 10dvw
+                        min-width: 10dvw
+                        max-width: 10dvw
+                        word-break: break-all
+
+                    tr th:nth-child(2),
+                    tr td:nth-child(2)
+                        width: 90dvw
+                        min-width: 90dvw
+                        max-width: 90dvw
+                        white-space: normal
+                        word-break: break-all
