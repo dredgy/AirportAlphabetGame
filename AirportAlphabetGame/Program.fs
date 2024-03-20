@@ -28,7 +28,7 @@ module Program =
     let app =
         application {
             use_mime_types [(".woff", "application/font-woff")]
-            use_static "public"
+            use_static "wwwroot"
             use_router router
             service_config ServiceConfig
             url "http://*:5001"
