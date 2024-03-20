@@ -30,8 +30,10 @@ module Program =
             use_mime_types [(".woff", "application/font-woff")]
             use_static "wwwroot"
             use_router router
+            use_developer_exceptions
             service_config ServiceConfig
             url "http://*:5001"
         }
 
+    app.Properties["host.AppMode"] <- "development"
     run app
