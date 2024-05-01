@@ -1,4 +1,4 @@
-﻿module Controller
+module Controller
 
 open System.Net.Http
 open System.Text.RegularExpressions

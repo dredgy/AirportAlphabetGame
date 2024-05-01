@@ -7,7 +7,6 @@ open Types
 
 module Program =
 
-    let test ="d"
     let pipeline = pipeline {
         use_warbler
     }
