@@ -26,7 +26,6 @@ module Program =
             use_router router
             use_developer_exceptions
             service_config ServiceConfig
-            url "http://*:5001"
         }
 
     run app
