@@ -36,12 +36,7 @@ let index content =
                               ] [
                             input [_type "text"; _name "fr24user"; _autocomplete "off"; _placeholder "Enter your MyFlightRadar24 username..."; _required; _hxValidate "true"; _pattern ".{4,}"]
                             button [_type "submit";] [str "Let's find out!"]
-                            Svg.svg [_width "200"; _height "30"] [
-                                Svg.rect [_width "200"; _height "30"; Svg._fill "lightgray"] []
-                                Svg.rect [_width "50"; _height "30"; Svg._fill "white"] [
-                                    Svg.animate [Svg._attributeName "x"; Svg._attributeType "XML"; Svg._values "0;150;0"; Svg._dur "2s"; Svg._begin "0s"; Svg._repeatCount "indefinite"] []
-                                ]
-                            ]
+                            img [_class "loading"; _alt "Loading..."; _width "200"; _height "30"; _src "/images/loading.svg"]
                         ]
                     ]
                 ]

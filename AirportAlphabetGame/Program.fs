@@ -1,6 +1,4 @@
-open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.DependencyInjection
-open Microsoft.AspNetCore.Http
 open Saturn
 open Giraffe
 open Types

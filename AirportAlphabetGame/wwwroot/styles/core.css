@@ -86,7 +86,7 @@ h1 {
   color: white;
   background: grey;
 }
-#pageContainer section#input article form svg {
+#pageContainer section#input article form .loading {
   display: none;
 }
 @media screen and (max-width: 900px) {
@@ -112,7 +112,7 @@ h1 {
 #pageContainer section#input article form.htmx-request input, #pageContainer section#input article form.htmx-request button {
   display: none;
 }
-#pageContainer section#input article form.htmx-request svg {
+#pageContainer section#input article form.htmx-request .loading {
   display: block;
 }
 #pageContainer section#results {
