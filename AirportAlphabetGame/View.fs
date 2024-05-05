@@ -1,4 +1,4 @@
-﻿module View
+module View
 
 open System
 open Htmx

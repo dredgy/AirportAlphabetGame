@@ -7,10 +7,6 @@ open Types
 
 module Program =
 
-    let pipeline = pipeline {
-        use_warbler
-    }
-
     let router = router {
         not_found_handler (setStatusCode 404 >=> text "404")
         get "/" ( (View.index [||]) |> htmlView)
@@ -23,7 +19,6 @@ module Program =
     }
 
     let ServiceConfig (services: IServiceCollection) = services.AddHttpContextAccessor()
-    let ipAddress = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList[2];
     let app =
         application {
             use_mime_types [(".woff", "application/font-woff")]
@@ -34,5 +29,4 @@ module Program =
             url "http://*:5001"
         }
 
-    app.Properties["host.AppMode"] <- "development"
     run app

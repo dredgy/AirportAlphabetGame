@@ -23,4 +23,23 @@
       <Content Include="sass\core.sass" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="wwwroot\scripts\htmx.min.js">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Include="wwwroot\scripts\index.js">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Include="wwwroot\scripts\json-enc.js">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Include="wwwroot\styles\core.css.map" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="wwwroot\styles\core.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
