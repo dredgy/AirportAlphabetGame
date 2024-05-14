@@ -48,7 +48,7 @@ let groupAirportsByLetter (airports: Airport[]) =
 let getAirportAbbrTags airportGroup =
     airportGroup
     |> Array.distinct
-    |> Array.sortBy (_.Code)
+    |> Array.sortBy _.Code
     |> Array.map View.airportAbbr
 
 
@@ -63,9 +63,9 @@ let processAirports (alphabet: char[]) (allAirports: Airport[])  =
     // Group airports by the first letter of their code
     let groupedAirports =
         allAirports
-        |> Seq.groupBy (fun airport -> airport.Code.[0])
+        |> Seq.groupBy _.Code.[0]
         |> Seq.map (fun (key, group) ->
-            let sortedGroup = group |> Seq.sortBy (fun airport -> airport.Code)
+            let sortedGroup = group |> Seq.sortBy _.Code
             key, (sortedGroup |> Seq.map View.airportAbbr |> intersperseCommas))
         |> dict
 
@@ -95,7 +95,6 @@ let RenderAirportList (user: usernameQuery) =
 
     let percentageOfLettersWithNoAirports = (float numberOfAirportsNotFlown / float alphabet.Length) * 100.0
     let message = $"{username} has flown {System.Math.Round(100. - percentageOfLettersWithNoAirports, 1)}%% of the alphabet!"
-
 
     airports
         |> Array.map (fun (letter, nodes) -> View.tableRow letter nodes)
