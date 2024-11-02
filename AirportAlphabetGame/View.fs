@@ -16,7 +16,7 @@ let index content =
         head [] [
             meta [_name "viewport"; _content "width=device-width"]
             title [] [str "Have you flown the alphabet?"]
-            link [_rel "stylesheet" ; _href "/styles/core.css"]
+            link [_rel "stylesheet" ; _href "/styles/core.css?v=56"]
             script [_src "/scripts/htmx.min.js"] []
             script [_src "/scripts/json-enc.js"] []
             script [_src "/scripts/index.js"] []
@@ -88,6 +88,7 @@ let table (message) (title: string) (plaintextAirports: string) (rows: XmlNode[]
             ]
             yield! rows
         ]
+        br []
     ]
 
 
