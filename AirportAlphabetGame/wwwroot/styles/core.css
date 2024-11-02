@@ -134,7 +134,7 @@ h1 {
     font-size: 1em;
   }
 }
-#pageContainer section#input article form.htmx-request input, #pageContainer section#input article form.htmx-request button {
+#pageContainer section#input article form.htmx-request input, #pageContainer section#input article form.htmx-request button, #pageContainer section#input article form.htmx-request label {
   display: none;
 }
 #pageContainer section#input article form.htmx-request .loading {
