@@ -16,10 +16,10 @@ let index content =
         head [] [
             meta [_name "viewport"; _content "width=device-width"]
             title [] [str "Have you flown the alphabet?"]
-            link [_rel "stylesheet" ; _href "/styles/core.css?v=2"]
+            link [_rel "stylesheet" ; _href "/styles/core.css"]
             script [_src "/scripts/htmx.min.js"] []
             script [_src "/scripts/json-enc.js"] []
-            script [_src "/scripts/index.js?v=2"] []
+            script [_src "/scripts/index.js"] []
         ]
         body [] [
             div [_id "pageContainer"] [
