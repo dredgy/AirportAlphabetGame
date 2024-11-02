@@ -1,5 +1,6 @@
 module Controller
 
+open System
 open System.Net.Http
 open System.Text.RegularExpressions
 open Giraffe.ViewEngine.HtmlElements
@@ -51,6 +52,27 @@ let getAirportAbbrTags airportGroup =
     |> Array.sortBy _.Code
     |> Array.map View.airportAbbr
 
+let rec extractTextValues (node: XmlNode) =
+    match node with
+    | Text code when code.Trim().Length > 1 -> [| code |] // Only include codes with exactly three letters
+    | ParentNode (_, children) ->
+        children
+        |> List.toArray
+        |> Array.collect extractTextValues // Collect all text values from children
+    | _ -> [| |] // Ignore any other node types
+
+
+let formatAirportsPlainText (airports: (string * XmlNode[])[]) (message: string) =
+    message + "\n" + (airports
+    |> Array.map (fun (letter, nodes) ->
+        let airportCodes =
+            nodes
+            |> Array.collect extractTextValues
+        match airportCodes with
+        | [||] -> letter
+        | _ -> String.concat ", " airportCodes
+    )
+    |> String.concat "\n")
 
 let processAirports (alphabet: char[]) (allAirports: Airport[])  =
 
@@ -79,27 +101,36 @@ let processAirports (alphabet: char[]) (allAirports: Airport[])  =
             | _ -> key, [||])
 
     dictionary
+
+
 let RenderAirportList (user: usernameQuery) =
     let username = parseUsername user.fr24user
     let alphabet = [|'A'..'Z'|]
     let airports =
-        $"username={username}&listType=airports&order=no&limit=0"
+        $"username={username}&listType={user.searchType}&order=no&limit=0"
             |> makePostRequest<AirportResponseData> "https://my.flightradar24.com/public-scripts/profileToplist"
             |> decodeResponseData
             |> processAirports alphabet
 
+
     let numberOfAirportsNotFlown =
         airports
-        |> Array.filter(fun (_, nodes) -> Array.isEmpty nodes)
+        |> Array.filter (fun (_, nodes) -> Array.isEmpty nodes)
         |> Array.length
 
     let percentageOfLettersWithNoAirports = (float numberOfAirportsNotFlown / float alphabet.Length) * 100.0
-    let message = $"{username} has flown {System.Math.Round(100. - percentageOfLettersWithNoAirports, 1)}%% of the alphabet!"
+    let percentageOfAlphabetString = $"{System.Math.Round(100. - percentageOfLettersWithNoAirports, 1)}%% of the alphabet!"
+    let message = $"{username} has flown {percentageOfAlphabetString}"
+    let messagePlainText = $"I've flown {percentageOfAlphabetString}"
 
+    let title = $"{username}'s {user.searchType} flown"
+    let plaintextAirports = formatAirportsPlainText airports messagePlainText
     airports
         |> Array.map (fun (letter, nodes) -> View.tableRow letter nodes)
-        |> View.table message username
+        |> View.table message title plaintextAirports
 
-let RenderPageWithUser (username: string) =
-    let airportList = RenderAirportList {fr24user = username}
+let RenderPageWithUserAndSearchType (searchType: string) (username: string)  =
+    let airportList = RenderAirportList {fr24user = username; searchType = searchType}
     View.index [|airportList|]
+
+let RenderPageWithUser = RenderPageWithUserAndSearchType "airports"

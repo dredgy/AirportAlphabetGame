@@ -16,10 +16,10 @@ let index content =
         head [] [
             meta [_name "viewport"; _content "width=device-width"]
             title [] [str "Have you flown the alphabet?"]
-            link [_rel "stylesheet" ; _href "/styles/core.css"]
+            link [_rel "stylesheet" ; _href "/styles/core.css?v=2"]
             script [_src "/scripts/htmx.min.js"] []
             script [_src "/scripts/json-enc.js"] []
-            script [_src "/scripts/index.js"] []
+            script [_src "/scripts/index.js?v=2"] []
         ]
         body [] [
             div [_id "pageContainer"] [
@@ -34,9 +34,22 @@ let index content =
                               _hxTarget "#results"
                               _hxSwap "innerHTML show:top"
                               ] [
-                            input [_type "text"; _name "fr24user"; _autocomplete "off"; _placeholder "Enter your MyFlightRadar24 username..."; _required; _hxValidate "true"; _pattern ".{4,}"]
-                            button [_type "submit";] [str "Let's find out!"]
-                            img [_class "loading"; _alt "Loading..."; _width "200"; _height "30"; _src "/images/loading.svg"]
+                            section [] [
+                                input [_type "text"; _name "fr24user"; _autocomplete "off"; _placeholder "Enter your MyFlightRadar24 username..."; _required; _hxValidate "true"; _pattern ".{4,}"]
+                                button [_type "submit";] [str "Let's find out!"]
+                                img [_class "loading"; _alt "Loading..."; _width "200"; _height "30"; _src "/images/loading.svg"]
+                            ]
+                            section [] [
+                                label [_class "checked"] [
+                                    input [_checked; _type "radio"; _name "searchType"; _value "airports"]
+                                    str "Airports"
+                                ]
+                                label [] [
+                                    input [_type "radio"; _name "searchType"; _value "airlines"]
+                                    str "Airlines"
+                                ]
+                            ]
+
                         ]
                     ]
                 ]
@@ -63,12 +76,15 @@ let tableRow (letter: string ) (codes: XmlNode[]) =
         ]
     ]
 
-let table (message) (user: string) (rows: XmlNode[]) =
+let table (message) (title: string) (plaintextAirports: string) (rows: XmlNode[])  =
     article [] [
         h1 [] [str message]
         table [] [
             tr [] [
-                th [_colspan "2"] [str $"{user}'s Airports Flown"]
+                th [_colspan "2"] [
+                    str title
+                    small [(attr "data-airportList") plaintextAirports; _onclick "navigator.clipboard.writeText(this.getAttribute('data-airportList')).then(() => { const originalText = this.innerText; this.innerText = '✅'; this.style.color = 'green'; setTimeout(() => { this.innerText = originalText; this.style.color = ''; }, 1000); })"] [str "📋"]
+                ]
             ]
             yield! rows
         ]

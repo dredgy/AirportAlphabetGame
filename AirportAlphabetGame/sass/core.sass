@@ -68,26 +68,45 @@ h1
                 font-size: 5em
 
             form
-                @include flex
-                flex-basis: 25%
+                @include flex-column
+                flex-basis: 50%
                 width: 100%
+                gap: 0.6em
 
-                input
-                    flex-basis: 75%
-                    height: 100%
-                    font-size: 2em
-                    padding-left: 1em
-                    color: #666
+                section
+                    @include flex
+                    flex-basis: 50%
+                    width: 100%
+                    > input
+                        flex-basis: 75%
+                        height: 100%
+                        font-size: 2em
+                        padding-left: 1em
+                        color: #666
 
-                button
-                    flex-basis: 25%
-                    font-size: 2em
-                    height: 100%
-                    color: white
-                    background: grey
+                    > label
+                        @include flex
+                        flex-basis: 10%
+                        color: white
+                        border: solid 1px white
+                        height: 100%
 
-                .loading
-                    display: none
+                        > input
+                            display: none
+
+                    > label.checked
+                        color: #666666
+                        background-color: white
+
+                    button
+                        flex-basis: 25%
+                        font-size: 2em
+                        height: 100%
+                        color: white
+                        background: grey
+
+                    .loading
+                        display: none
 
 
             @include mobile
@@ -149,6 +168,9 @@ h1
                 th
                     background-color: gray
                     color: white
+
+                    small
+                        cursor: pointer
 
                 td, th
                     padding: 0.3em

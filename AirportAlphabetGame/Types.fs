@@ -2,6 +2,7 @@
 
 type usernameQuery = {
     fr24user: string
+    searchType: string
 }
 
 type AirportResponseData = obj[][]

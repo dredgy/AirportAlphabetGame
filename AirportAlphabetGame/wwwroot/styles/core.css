@@ -69,24 +69,49 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-basis: 25%;
+  flex-direction: column;
+  flex-basis: 50%;
+  width: 100%;
+  gap: 0.6em;
+}
+#pageContainer section#input article form section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 50%;
   width: 100%;
 }
-#pageContainer section#input article form input {
+#pageContainer section#input article form section > input {
   flex-basis: 75%;
   height: 100%;
   font-size: 2em;
   padding-left: 1em;
   color: #666;
 }
-#pageContainer section#input article form button {
+#pageContainer section#input article form section > label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 10%;
+  color: white;
+  border: solid 1px white;
+  height: 100%;
+}
+#pageContainer section#input article form section > label > input {
+  display: none;
+}
+#pageContainer section#input article form section > label.checked {
+  color: #666666;
+  background-color: white;
+}
+#pageContainer section#input article form section button {
   flex-basis: 25%;
   font-size: 2em;
   height: 100%;
   color: white;
   background: grey;
 }
-#pageContainer section#input article form .loading {
+#pageContainer section#input article form section .loading {
   display: none;
 }
 @media screen and (max-width: 900px) {
@@ -148,6 +173,9 @@ h1 {
 #pageContainer section#results article table th {
   background-color: gray;
   color: white;
+}
+#pageContainer section#results article table th small {
+  cursor: pointer;
 }
 #pageContainer section#results article table td, #pageContainer section#results article table th {
   padding: 0.3em;
