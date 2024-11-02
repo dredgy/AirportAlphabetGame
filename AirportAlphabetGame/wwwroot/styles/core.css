@@ -37,6 +37,8 @@ h1 {
 }
 #pageContainer abbr {
   cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
 }
 #pageContainer > section {
   display: flex;
@@ -95,6 +97,7 @@ h1 {
   color: white;
   border: solid 1px white;
   height: 100%;
+  cursor: pointer;
 }
 #pageContainer section#input article form section > label > input {
   display: none;
