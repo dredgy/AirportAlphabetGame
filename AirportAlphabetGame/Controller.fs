@@ -21,7 +21,7 @@ let getJsonResult result =
         | Error _ -> failwith "Invalid Json"
         | Ok finalResult -> finalResult
 
-
+//Test
 let makePostRequest<'x> (url: string) payload =
     async {
         use httpClient = new HttpClient()
