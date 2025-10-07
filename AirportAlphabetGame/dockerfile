@@ -1,0 +1,29 @@
+# Use a full Ubuntu image
+FROM ubuntu:24.04 AS base
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies: ICU, CA certs, curl (optional for debugging)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libicu-dev \
+        ca-certificates \
+        curl \
+        unzip \
+        wget \
+        git \
+        tzdata && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy published .NET app
+COPY bin/Release/net8.0/linux-x64/publish/ ./
+
+# Expose port
+EXPOSE 5001
+
+# Set timezone (optional, avoids TZ issues)
+ENV TZ=Australia/Brisbane
+
+# Set entrypoint
+ENTRYPOINT ["./AirportAlphabetGame"]

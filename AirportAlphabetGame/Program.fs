@@ -2,10 +2,14 @@ open Microsoft.AspNetCore.Http
 open Microsoft.Extensions.DependencyInjection
 open Saturn
 open Giraffe
-open Types
 
+open Types
+open Thoth.Json.Giraffe
+open System
 open System.Net
 open System.Net.Sockets
+open System.IO
+
 
 module Program =
 
@@ -23,6 +27,7 @@ module Program =
 
     let ServiceConfig (services: IServiceCollection) =
         // Get the server IP address
+        services.AddSingleton<Json.ISerializer>(ThothSerializer()) |> ignore
         let serverIpAddress =
             match Dns.GetHostEntry(Dns.GetHostName()).AddressList |> Array.tryFind(fun ip -> ip.AddressFamily = AddressFamily.InterNetwork) with
             | Some ip -> ip.ToString()
@@ -40,8 +45,8 @@ module Program =
     let app =
         application {
             use_mime_types [(".woff", "application/font-woff")]
-            use_static "wwwroot"
             use_router router
+            use_static (Path.Combine(AppContext.BaseDirectory, "wwwroot"))
             use_developer_exceptions
             service_config ServiceConfig
             url "http://0.0.0.0:5001"

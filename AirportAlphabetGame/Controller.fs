@@ -3,11 +3,12 @@ module Controller
 open System
 open System.Net.Http
 open System.Text.RegularExpressions
+open Giraffe
 open Giraffe.ViewEngine.HtmlElements
 open Types
 open System.Text
+open System.Net
 open Thoth.Json.Net
-
 
 let parseUsername (username: string) =
     let pattern = @"https?://(?:www\.)?my\.flightradar24\.com/([^/?#]+)"
@@ -24,12 +25,19 @@ let getJsonResult result =
 
 let makePostRequest<'x> (url: string) payload =
     async {
-        use httpClient = new HttpClient()
+        use handler = new HttpClientHandler()
+        handler.AutomaticDecompression <- DecompressionMethods.GZip ||| DecompressionMethods.Deflate
+        use httpClient = new HttpClient(handler)
+
         let content = new StringContent(payload, Encoding.UTF8, "application/x-www-form-urlencoded")
         let request = new HttpRequestMessage(HttpMethod.Post, url)
         request.Content <- content
+        request.Headers.Add("User-Agent", "Mozilla/5.0") // mimic browser
+        request.Headers.Add("Accept", "application/json")
+
         let! response = httpClient.SendAsync(request) |> Async.AwaitTask
         let! responseContent = response.Content.ReadAsStringAsync() |> Async.AwaitTask
+
         return responseContent
     }
     |> Async.RunSynchronously
@@ -106,6 +114,7 @@ let processAirports (alphabet: char[]) (allAirports: Airport[])  =
 let RenderAirportList (user: usernameQuery) =
     let username = parseUsername user.fr24user
     let alphabet = [|'A'..'Z'|]
+
     let airports =
         $"username={username}&listType={user.searchType}&order=no&limit=0"
             |> makePostRequest<AirportResponseData> "https://my.flightradar24.com/public-scripts/profileToplist"

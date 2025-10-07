@@ -16,6 +16,7 @@
 
     <ItemGroup>
       <PackageReference Include="Saturn" Version="0.16.1" />
+      <PackageReference Include="Thoth.Json.Giraffe" Version="6.0.0" />
       <PackageReference Include="Thoth.Json.Net" Version="11.0.0" />
     </ItemGroup>
 
@@ -27,6 +28,9 @@
       <None Include="wwwroot\scripts\htmx.min.js">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+        <None Include="wwwroot\images\loading.svg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
       <None Include="wwwroot\scripts\index.js">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
